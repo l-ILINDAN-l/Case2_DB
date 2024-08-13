@@ -3,7 +3,7 @@ CREATE TABLE "User" (
     username VARCHAR(50) UNIQUE NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    registration_date TIMESTAMP NOT NULL,
+    registration_dt TIMESTAMP NOT NULL,
     role VARCHAR(10) CHECK (role IN ('student', 'teacher', 'admin')) NOT NULL
 );
 
@@ -26,7 +26,7 @@ CREATE TABLE UserTask (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES "User"(id) ON DELETE CASCADE,
     task_id INT REFERENCES Task(id) ON DELETE CASCADE,
-    completion_date TIMESTAMP NOT NULL,
+    completion_dt TIMESTAMP NOT NULL,
     is_correct BOOLEAN,
     hints_used INT
 );
@@ -34,7 +34,7 @@ CREATE TABLE UserTask (
 CREATE TABLE Exam (
     id SERIAL PRIMARY KEY,
     title VARCHAR(255) NOT NULL,
-    creation_date TIMESTAMP NOT NULL,
+    creation_dt TIMESTAMP NOT NULL,
     total_tasks INT NOT NULL
 );
 
@@ -57,7 +57,7 @@ CREATE TABLE Recommendation (
     id SERIAL PRIMARY KEY,
     user_id INT REFERENCES "User"(id) ON DELETE CASCADE,
     task_id INT REFERENCES Task(id) ON DELETE CASCADE,
-    recommendation_date TIMESTAMP NOT NULL
+    recommendation_dt TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Feedback (
@@ -65,7 +65,7 @@ CREATE TABLE Feedback (
     user_task_id INT REFERENCES UserTask(id) ON DELETE CASCADE,
     teacher_id INT REFERENCES "User"(id) ON DELETE CASCADE,
     feedback_text TEXT NOT NULL,
-    feedback_date TIMESTAMP NOT NULL
+    feedback_dt TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Gamification (
